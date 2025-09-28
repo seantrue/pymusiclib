@@ -1,0 +1,189 @@
+# pyproject.toml
+# Modern Python packaging configuration
+
+[project]
+name = "itlibrary-bridge"
+version = "0.1.0"
+description = "Python bindings for iTunes Library (ITlib) API using Swift bridge"
+readme = "README.md"
+authors = [
+    { name = "Sean D. True" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Multimedia :: Sound/Audio :: Players",
+]
+keywords = ["itunes", "music", "library", "macos", "apple", "media"]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=2.1",
+    "pandas>=2.0",
+    "openpyxl>=3.0",  # For Excel export support
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=3.0",
+    "pytest-benchmark>=3.4",
+    "black>=22.0",
+    "mypy>=0.950",
+    "isort>=5.0",
+    "ruff>=0.1.0",
+    "pillow>=11.3.0",
+    "licensecheck>=2025.1.0",
+    "build>=0.8",
+    "twine>=4.0",
+    "wheel>=0.37",
+]
+test = [
+    "pytest>=6.0",
+    "pytest-cov>=3.0",
+    "pytest-benchmark>=3.4",
+    "pillow>=11.3.0",
+]
+docs = [
+    "sphinx>=4.0",
+    "sphinx-rtd-theme>=1.0",
+    "myst-parser>=0.18",
+]
+
+[project.urls]
+Homepage = "https://github.com/seantrue/itlibrary-bridge"
+Documentation = "https://itlibrary-bridge.readthedocs.io/"
+Repository = "https://github.com/seantrue/itlibrary-bridge.git"
+"Bug Tracker" = "https://github.com/seantrue/itlibrary-bridge/issues"
+
+[project.scripts]
+itlib-demo = "itlibrary.scripts.demo:main"
+itlib-smoke = "itlibrary.scripts.smoke:main"
+itlib-export = "itlibrary.scripts.export:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312', 'py313']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+[build-system]
+requires = ["hatchling>=1.13"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=6.0",
+    "pytest-cov>=3.0",
+    "pytest-benchmark>=3.4",
+    "black>=22.0",
+    "mypy>=0.950",
+    "isort>=5.0",
+    "ruff>=0.1.0",
+    "pillow>=11.3.0",
+    "licensecheck>=2025.1.0",
+    "build>=0.8",
+    "twine>=4.0",
+    "wheel>=0.37",
+]
+
+[tool.hatch.build.targets.wheel]
+# Include both a single-module layout (pymetallic.py) and a package layout (pymetallic/)
+# so either structure is packaged correctly without setuptools.
+artifacts = ["*.dylib"]
+exclude = ["*.gif"]
+packages = ["src/itlibrary"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by formatter
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports in __init__.py are expected
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "gpu: marks tests as requiring GPU",
+]
+
+[tool.coverage.run]
+source = ["src/itlibrary"]
+omit = [
+    "*/tests/*",
+    "*/scripts/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.cibuildwheel]
+before-all = "uname -a"
+
+[tool.twine]
+repository = "pypi"
+sign = false
+skip-existing = false
+verify-ssl = true
