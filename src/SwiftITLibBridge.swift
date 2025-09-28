@@ -468,7 +468,7 @@ public func itlib_search_media_items_by_title(_ searchTerm: UnsafePointer<CChar>
     let search = String(cString: searchTerm).lowercased()
     let items = library.allMediaItems
     let matchingItems = items.filter { item in
-        let title = item.title ?? ""
+        let title = item.title
         return title.lowercased().contains(search)
     }
 
