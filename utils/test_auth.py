@@ -8,7 +8,7 @@ import sys
 
 def main():
     try:
-        import itlibrary
+        import pymusiclib
 
         print("iTunes Library Authorization Test")
         print("=" * 50)
@@ -16,7 +16,7 @@ def main():
         print("1. Attempting to initialize iTunes Library...")
 
         try:
-            library = itlibrary.ITLibrary()
+            library = pymusiclib.ITLibrary()
             print("✓ SUCCESS: iTunes Library initialized!")
 
             print(f"   Media items: {library.media_items_count}")
@@ -31,7 +31,7 @@ def main():
             print("\n✓ All tests passed! iTunes Library access is working.")
             return True
 
-        except itlibrary.ITLibraryError as e:
+        except pymusiclib.ITLibraryError as e:
             print(f"✗ FAILED: {e}")
             print("\nTroubleshooting steps:")
             print("1. Open Music app and make sure it has some content")

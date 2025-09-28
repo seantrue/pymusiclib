@@ -12,8 +12,8 @@ from typing import Optional, List, Dict, Any
 import pandas as pd
 
 try:
-    from itlibrary.helpers import LibraryBenchmark
-    from itlibrary import ITLibrary, ITLibraryError
+    from pymusiclib.helpers import LibraryBenchmark
+    from pymusiclib import ITLibrary, ITLibraryError
 except ImportError:
     print("ITLibrary Bridge not properly installed. Please run:")
     print("  make build && make install-dev")

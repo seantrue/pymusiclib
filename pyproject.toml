@@ -2,7 +2,7 @@
 # Modern Python packaging configuration
 
 [project]
-name = "itlibrary-bridge"
+name = "pymusiclib"
 version = "0.1.0"
 description = "Python bindings for iTunes Library (ITlib) API using Swift bridge"
 readme = "README.md"
@@ -60,15 +60,15 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/seantrue/itlibrary-bridge"
-Documentation = "https://itlibrary-bridge.readthedocs.io/"
-Repository = "https://github.com/seantrue/itlibrary-bridge.git"
-"Bug Tracker" = "https://github.com/seantrue/itlibrary-bridge/issues"
+Homepage = "https://github.com/seantrue/pymusiclib"
+Documentation = "https://pymusiclib.readthedocs.io/"
+Repository = "https://github.com/seantrue/pymusiclib.git"
+"Bug Tracker" = "https://github.com/seantrue/pymusiclib/issues"
 
 [project.scripts]
-itlib-demo = "itlibrary.scripts.demo:main"
-itlib-smoke = "itlibrary.scripts.smoke:main"
-itlib-export = "itlibrary.scripts.export:main"
+pymusiclib-demo = "pymusiclib.scripts.demo:main"
+pymusiclib-smoke = "pymusiclib.scripts.smoke:main"
+pymusiclib-export = "pymusiclib.scripts.export:main"
 
 [tool.black]
 line-length = 88
@@ -90,8 +90,8 @@ exclude = '''
 requires = ["hatchling>=1.13"]
 build-backend = "hatchling.build"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=6.0",
     "pytest-cov>=3.0",
     "pytest-benchmark>=3.4",
@@ -107,11 +107,11 @@ dev-dependencies = [
 ]
 
 [tool.hatch.build.targets.wheel]
-# Include both a single-module layout (pymetallic.py) and a package layout (pymetallic/)
+# Include both a single-module layout (pymusiclib.py) and a package layout (pymusiclib/)
 # so either structure is packaged correctly without setuptools.
 artifacts = ["*.dylib"]
 exclude = ["*.gif"]
-packages = ["src/itlibrary"]
+packages = ["src/pymusiclib"]
 
 [tool.ruff]
 line-length = 88
@@ -159,7 +159,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["src/itlibrary"]
+source = ["src/pymusiclib"]
 omit = [
     "*/tests/*",
     "*/scripts/*",

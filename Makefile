@@ -10,7 +10,7 @@ all: check format lint typecheck install-dev test-cov
 SWIFT_FILE = SwiftITLibBridge.swift
 LIB_NAME = libitlibrary.dylib
 SRC_PATH=src
-PACKAGE_PREFIX ?= $(SRC_PATH)/itlibrary
+PACKAGE_PREFIX ?= $(SRC_PATH)/pymusiclib
 LIB_PATH=$(PACKAGE_PREFIX)/$(LIB_NAME)
 LIB_PATH_ARM64=$(PACKAGE_PREFIX)/$(LIB_NAME).arm64
 LIB_PATH_X86_64=$(PACKAGE_PREFIX)/$(LIB_NAME).x86_64
@@ -51,7 +51,7 @@ licensecheck:
 # Type checking
 typecheck:
 	@echo "Running type checks..."
-	uv run mypy src/itlibrary tests --ignore-missing-imports
+	uv run mypy src/pymusiclib tests --ignore-missing-imports
 	@echo "Type checking complete!"
 
 # Clean build artifacts
@@ -131,8 +131,8 @@ install-dev: uninstall
 # Run smoke test
 smoke: $(LIB_PATH)
 	@echo "Running smoke tests..."
-	$(PYTHON) -c "import itlibrary; itlibrary.run_simple_library_example()"
-	$(PYTHON) src/itlibrary/scripts/smoke.py
+	uv run python -c "import pymusiclib; pymusiclib.run_simple_library_example()"
+	uv run python src/pymusiclib/scripts/smoke.py
 	@echo "Smoke tests passed!"
 
 # Run test suite
@@ -151,21 +151,21 @@ test-cov: $(LIB_PATH)
 # Run performance benchmarks
 benchmark: $(LIB_PATH)
 	@echo "Running performance benchmarks..."
-	$(PYTHON) -c "from itlibrary.helpers import LibraryBenchmark; b = LibraryBenchmark(); b.benchmark_library_access()"
+	$(PYTHON) -c "from pymusiclib.helpers import LibraryBenchmark; b = LibraryBenchmark(); b.benchmark_library_access()"
 
 # Run comprehensive examples
 demos: $(LIB_PATH)
 	@echo "Running all demos..."
-	$(PYTHON) src/itlibrary/scripts/demo.py --demos all
+	$(PYTHON) src/pymusiclib/scripts/demo.py --demos all
 
 # Export library data
 export-stats:
 	@echo "Showing library statistics..."
-	$(PYTHON) src/itlibrary/scripts/export.py --stats
+	$(PYTHON) src/pymusiclib/scripts/export.py --stats
 
 export-sample:
 	@echo "Exporting sample library data..."
-	$(PYTHON) src/itlibrary/scripts/export.py claude-debug/library_sample.csv --limit 50
+	$(PYTHON) src/pymusiclib/scripts/export.py claude-debug/library_sample.csv --limit 50
 
 # Run basic examples
 examples: $(LIB_PATH)
@@ -175,7 +175,7 @@ examples: $(LIB_PATH)
 
 uninstall:
 	@echo "Uninstalling Python package..."
-	uv pip uninstall itlibrary-bridge
+	uv pip uninstall pymusiclib
 	@echo "Uninstallation complete..."
 
 

@@ -87,6 +87,7 @@ checkin.txt
 add_changed.sh
 ci.yml
 install.sh
+update.sh
 
 # Demo outputs
 demo_output/
