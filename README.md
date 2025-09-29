@@ -171,19 +171,43 @@ PyMusicLib uses a hybrid Python/Swift architecture:
 
 1. **Python Layer** (`src/pymusiclib/`) - Main API, export tools, and data processing
 2. **Swift Bridge** (`src/SwiftITLibBridge.swift`) - Native iTunes Library interface
-3. **Dynamic Library** (`libitlibrary.dylib`) - Compiled Swift bridge
+3. **Dynamic Library** (`libitlibrary.dylib`) - Compiled Swift bridge for iTunes Library access
 4. **Command-Line Tools** - Export, organization, and testing utilities
 
 The flow is: Python → ctypes → Swift dylib → iTunes Library Framework
 
+### Project Structure
+
+```
+pymusiclib/
+├── src/pymusiclib/          # Main Python package
+│   ├── pymusiclib.py        # Core iTunes Library API
+│   ├── helpers.py           # Export and analysis tools
+│   └── scripts/             # CLI tools
+│       ├── export.py        # Advanced export utility
+│       ├── demo.py          # Demonstration suite
+│       └── smoke.py         # Validation tests
+├── utils/                   # Utility scripts
+│   ├── servify.py          # Music organization tool
+│   └── test_auth.py        # Authorization testing
+├── src/SwiftITLibBridge.swift # Swift bridge implementation
+└── tests/                  # Test suite
+```
+
 ### Key Components
 
-- **`pymusiclib.py`** - Core iTunes Library API classes
+**Core Library:**
+- **`pymusiclib.py`** - Core iTunes Library API classes (ITLibrary, MediaItem, Playlist)
 - **`helpers.py`** - Data export, benchmarking, and analysis tools
-- **`scripts/export.py`** - Advanced command-line export tool
-- **`utils/servify.py`** - Music file organization utility
-- **`scripts/demo.py`** - Comprehensive demonstration suite
-- **`scripts/smoke.py`** - Quick validation tests
+
+**Command-Line Scripts:**
+- **`scripts/export.py`** - Advanced data export tool with filtering (`pymusiclib-export`)
+- **`scripts/demo.py`** - Comprehensive demonstration suite (`pymusiclib-demo`)
+- **`scripts/smoke.py`** - Quick validation and testing (`pymusiclib-smoke`)
+
+**Utilities:**
+- **`utils/servify.py`** - Music file organization tool for Plex-compatible structures
+- **`utils/test_auth.py`** - iTunes Library authorization testing utility
 
 ## Development
 
