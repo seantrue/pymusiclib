@@ -8,10 +8,10 @@ import sys
 import traceback
 
 try:
-    import pymusiclib
-    from pymusiclib import ITLibrary, ITLibraryError, run_simple_library_example
+    import musiclib
+    from musiclib import ITLibrary, ITLibraryError, run_simple_library_example
 except ImportError:
-    print("✗ FAIL: ITLibrary Bridge not properly installed")
+    print("✗ FAIL: MusicLib not properly installed")
     print("  Please run: make build && make install-dev")
     sys.exit(1)
 
@@ -20,8 +20,8 @@ def test_import():
     """Test that all modules can be imported."""
     print("Testing imports...", end=" ")
     try:
-        from pymusiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
-        from pymusiclib.helpers import LibraryBenchmark
+        from musiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
+        from musiclib.helpers import LibraryBenchmark
 
         print("✓ PASS")
         return True

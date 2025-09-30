@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__directory_tree",
+      "WebSearch",
+      "mcp__filesystem__move_file",
+      "Bash(make:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(pytest:*)",
+      "Bash(python:*)",
+      "Read(//System/Library/Frameworks/iTunesLibrary.framework/**)",
+      "Bash(itlib-demo)",
+      "Bash(itlib-smoke)",
+      "Bash(lipo:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(uv sync:*)",
+      "Bash(itlib-export:*)",
+      "Bash(echo:*)",
+      "mcp__jetbrains__list_directory_tree",
+      "mcp__jetbrains__get_file_text_by_path",
+      "Bash(uv run:*)",
+      "Bash(timeout:*)",
+      "mcp__filesystem__create_directory",
+      "Bash(git rm:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(python3:*)",
+      "Bash(git tag:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

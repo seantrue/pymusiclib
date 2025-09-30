@@ -12,10 +12,10 @@ from typing import Optional, List, Dict, Any
 import pandas as pd
 
 try:
-    from pymusiclib.helpers import LibraryBenchmark
-    from pymusiclib import ITLibrary, ITLibraryError
+    from musiclib.helpers import LibraryBenchmark
+    from musiclib import ITLibrary, ITLibraryError
 except ImportError:
-    print("ITLibrary Bridge not properly installed. Please run:")
+    print("MusicLib not properly installed. Please run:")
     print("  make build && make install-dev")
     sys.exit(1)
 
@@ -48,6 +48,8 @@ class LibraryExporter:
         rating_min: Optional[int] = None,
         date_added_after: Optional[str] = None,
         date_added_before: Optional[str] = None,
+        extension_filter: Optional[str] = None,
+        format_filter: Optional[str] = None,
         # Search options
         title_search: Optional[str] = None,
         artist_search: Optional[str] = None,
@@ -74,6 +76,8 @@ class LibraryExporter:
             rating_min: Minimum rating (0-100)
             date_added_after: Only include tracks added after this date (YYYY-MM-DD format)
             date_added_before: Only include tracks added before this date (YYYY-MM-DD format)
+            extension_filter: Filter by file extension (e.g., 'mp3', 'm4a', 'aac')
+            format_filter: Filter by format/codec (e.g., 'MPEG audio', 'AAC audio')
             title_search: Search term for track titles (case-insensitive)
             artist_search: Search term for artist names (case-insensitive)
             album_search: Search term for album names (case-insensitive)
@@ -147,6 +151,18 @@ class LibraryExporter:
             else:
                 df = df[df["rating"] >= rating_min]
                 print(f"  • Rating >= {rating_min}: {len(df):,} items")
+
+        # File extension filter
+        if extension_filter:
+            # Support comma-separated list of extensions
+            extensions = [ext.strip().lower() for ext in extension_filter.split(",")]
+            df = df[df["file_extension"].str.lower().isin(extensions)]
+            print(f"  • File extension in {extensions}: {len(df):,} items")
+
+        # Format/encoding filter
+        if format_filter:
+            df = df[df["format_kind"].str.contains(format_filter, case=False, na=False)]
+            print(f"  • Format contains '{format_filter}': {len(df):,} items")
 
         # Search filters (case-insensitive substring matching)
         if title_search:
@@ -324,6 +340,18 @@ Examples:
 
   # Export tracks added before specific date
   python export.py older_tracks.csv --date-added-before 2020-12-31
+
+  # Export only MP3 files
+  python export.py mp3_only.csv --extension-filter mp3
+
+  # Export only AAC and M4A files
+  python export.py aac_files.csv --extension-filter "m4a,aac"
+
+  # Export Apple Lossless (ALAC) files
+  python export.py lossless.csv --format-filter "Apple Lossless"
+
+  # Export only MPEG audio files
+  python export.py mpeg_audio.csv --format-filter "MPEG audio"
         """,
     )
 
@@ -385,6 +413,16 @@ Examples:
     filter_group.add_argument(
         "--date-added-before",
         help="Only include tracks added before this date (YYYY-MM-DD)",
+    )
+
+    filter_group.add_argument(
+        "--extension-filter",
+        help="Filter by file extension (e.g., 'mp3', 'm4a', 'aac'). Supports comma-separated list: 'mp3,m4a'",
+    )
+
+    filter_group.add_argument(
+        "--format-filter",
+        help="Filter by format/encoding (e.g., 'MPEG audio', 'AAC audio', 'Apple Lossless')",
     )
 
     # Search options
@@ -469,6 +507,8 @@ def main():
             rating_min=args.rating_min,
             date_added_after=args.date_added_after,
             date_added_before=args.date_added_before,
+            extension_filter=args.extension_filter,
+            format_filter=args.format_filter,
             # Search
             title_search=args.title_search,
             artist_search=args.artist_search,

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-PyMusicLib: Python bindings for iTunes Library (ITlib) API using Swift bridge
+MusicLib: Python bindings for iTunes Library (ITlib) API using Swift bridge
 Access iTunes/Music library data programmatically on macOS
 """
 
 # Public API exports
-from .pymusiclib import (
+from .musiclib import (
     ITLibrary,
     ITLibraryError,
     MediaItem,
@@ -28,7 +28,7 @@ __all__ = [
 __version__ = "0.1.0"
 
 if __name__ == "__main__":
-    print("PyMusicLib: Python bindings for iTunes Library")
+    print("MusicLib: Python bindings for iTunes Library")
     print(
         "Note: This requires the Swift bridge library (libitlibrary.dylib) to be compiled and available"
     )

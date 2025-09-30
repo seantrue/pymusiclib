@@ -10,10 +10,10 @@ import traceback
 from typing import List
 
 try:
-    from pymusiclib.helpers import LibraryBenchmark, run_comprehensive_demo
-    from pymusiclib import ITLibrary, ITLibraryError
+    from musiclib.helpers import LibraryBenchmark, run_comprehensive_demo
+    from musiclib import ITLibrary, ITLibraryError
 except ImportError:
-    print("ITLibrary Bridge not properly installed. Please run:")
+    print("MusicLib not properly installed. Please run:")
     print("  make build && make install-dev")
     sys.exit(1)
 

@@ -1,10 +1,10 @@
-# PyMusicLib
+# MusicLib
 
 Python bindings for Apple's iTunes Library (ITlib) API, enabling programmatic access to iTunes/Music library data on macOS with powerful export and organization tools.
 
 ## Overview
 
-PyMusicLib provides a comprehensive Python interface to access iTunes/Music library information with advanced data export and music organization capabilities:
+MusicLib provides a comprehensive Python interface to access iTunes/Music library information with advanced data export and music organization capabilities:
 
 ### Core Library Access
 - Media items (songs, tracks) with comprehensive metadata (title, artist, album, duration, bitrate, ratings, etc.)
@@ -41,8 +41,8 @@ PyMusicLib provides a comprehensive Python interface to access iTunes/Music libr
 
 ```bash
 # Clone the repository
-git clone https://github.com/seantrue/pymusiclib.git
-cd pymusiclib
+git clone https://github.com/seantrue/musiclib.git
+cd musiclib
 
 # Check prerequisites
 make check
@@ -72,10 +72,10 @@ make export-stats
 ### Basic Library Access
 
 ```python
-import pymusiclib
+import musiclib
 
 # Initialize library connection
-library = pymusiclib.ITLibrary()
+library = musiclib.ITLibrary()
 
 # Get library info
 print(f"Media items: {library.media_items_count}")
@@ -97,7 +97,7 @@ print(f"Found {matches} songs with 'love' in title")
 ### Advanced Data Export
 
 ```python
-from pymusiclib.helpers import LibraryBenchmark
+from musiclib.helpers import LibraryBenchmark
 
 # Export library to CSV with filtering
 benchmark = LibraryBenchmark()
@@ -117,19 +117,19 @@ df.to_excel("my_library.xlsx", index=False)
 
 ```bash
 # Export entire library to CSV
-pymusiclib-export library.csv
+musiclib-export library.csv
 
 # Export with advanced filtering
-pymusiclib-export filtered.csv --genre-filter rock --year-min 1990 --year-max 2000
+musiclib-export filtered.csv --genre-filter rock --year-min 1990 --year-max 2000
 
 # Export high-quality tracks to Excel
-pymusiclib-export hq_music.xlsx --format excel --bitrate-min 256
+musiclib-export hq_music.xlsx --format excel --bitrate-min 256
 
 # Show library statistics for planning
-pymusiclib-export --stats
+musiclib-export --stats
 
 # Search and export specific content
-pymusiclib-export beatles.csv --artist-search "beatles"
+musiclib-export beatles.csv --artist-search "beatles"
 ```
 
 #### Music Organization Tool
@@ -155,21 +155,21 @@ python utils/servify.py library.csv --quiet
 
 ```bash
 # Run smoke tests
-pymusiclib-smoke
+musiclib-smoke
 
 # Run comprehensive demos
-pymusiclib-demo
+musiclib-demo
 
 # Run specific demo types
-pymusiclib-demo --demos basic
-pymusiclib-demo --demos benchmarks
+musiclib-demo --demos basic
+musiclib-demo --demos benchmarks
 ```
 
 ## Architecture
 
-PyMusicLib uses a hybrid Python/Swift architecture:
+MusicLib uses a hybrid Python/Swift architecture:
 
-1. **Python Layer** (`src/pymusiclib/`) - Main API, export tools, and data processing
+1. **Python Layer** (`src/musiclib/`) - Main API, export tools, and data processing
 2. **Swift Bridge** (`src/SwiftITLibBridge.swift`) - Native iTunes Library interface
 3. **Dynamic Library** (`libitlibrary.dylib`) - Compiled Swift bridge for iTunes Library access
 4. **Command-Line Tools** - Export, organization, and testing utilities
@@ -179,31 +179,31 @@ The flow is: Python → ctypes → Swift dylib → iTunes Library Framework
 ### Project Structure
 
 ```
-pymusiclib/
-├── src/pymusiclib/          # Main Python package
-│   ├── pymusiclib.py        # Core iTunes Library API
-│   ├── helpers.py           # Export and analysis tools
-│   └── scripts/             # CLI tools
-│       ├── export.py        # Advanced export utility
-│       ├── demo.py          # Demonstration suite
-│       └── smoke.py         # Validation tests
-├── utils/                   # Utility scripts
-│   ├── servify.py          # Music organization tool
-│   └── test_auth.py        # Authorization testing
+musiclib/
+├── src/musiclib/          # Main Python package
+│   ├── musiclib.py        # Core iTunes Library API
+│   ├── helpers.py         # Export and analysis tools
+│   └── scripts/           # CLI tools
+│       ├── export.py      # Advanced export utility
+│       ├── demo.py        # Demonstration suite
+│       └── smoke.py       # Validation tests
+├── utils/                 # Utility scripts
+│   ├── servify.py        # Music organization tool
+│   └── test_auth.py      # Authorization testing
 ├── src/SwiftITLibBridge.swift # Swift bridge implementation
-└── tests/                  # Test suite
+└── tests/                # Test suite
 ```
 
 ### Key Components
 
 **Core Library:**
-- **`pymusiclib.py`** - Core iTunes Library API classes (ITLibrary, MediaItem, Playlist)
+- **`musiclib.py`** - Core iTunes Library API classes (ITLibrary, MediaItem, Playlist)
 - **`helpers.py`** - Data export, benchmarking, and analysis tools
 
 **Command-Line Scripts:**
-- **`scripts/export.py`** - Advanced data export tool with filtering (`pymusiclib-export`)
-- **`scripts/demo.py`** - Comprehensive demonstration suite (`pymusiclib-demo`)
-- **`scripts/smoke.py`** - Quick validation and testing (`pymusiclib-smoke`)
+- **`scripts/export.py`** - Advanced data export tool with filtering (`musiclib-export`)
+- **`scripts/demo.py`** - Comprehensive demonstration suite (`musiclib-demo`)
+- **`scripts/smoke.py`** - Quick validation and testing (`musiclib-smoke`)
 
 **Utilities:**
 - **`utils/servify.py`** - Music file organization tool for Plex-compatible structures
@@ -296,9 +296,9 @@ make install
 
 After installation, the following commands are available:
 
-- **`pymusiclib-export`** - Advanced data export with filtering and search
-- **`pymusiclib-demo`** - Comprehensive demonstration of library capabilities
-- **`pymusiclib-smoke`** - Quick validation and testing
+- **`musiclib-export`** - Advanced data export with filtering and search
+- **`musiclib-demo`** - Comprehensive demonstration of library capabilities
+- **`musiclib-smoke`** - Quick validation and testing
 - **`utils/servify.py`** - Music file organization utility
 
 ## Examples
@@ -307,7 +307,7 @@ After installation, the following commands are available:
 
 ```bash
 # Export tracks added in 2024 with high bitrate
-pymusiclib-export recent_hq.csv \
+musiclib-export recent_hq.csv \
   --date-added-after 2024-01-01 \
   --bitrate-min 256 \
   --format csv
@@ -317,7 +317,7 @@ pymusiclib-export recent_hq.csv \
 
 ```bash
 # Export library data
-pymusiclib-export my_library.csv
+musiclib-export my_library.csv
 
 # Organize files with custom naming
 python utils/servify.py my_library.csv \
@@ -330,10 +330,10 @@ python utils/servify.py my_library.csv \
 
 ```bash
 # Show comprehensive library statistics
-pymusiclib-export --stats
+musiclib-export --stats
 
 # Export analysis data for external tools
-pymusiclib-export analysis.xlsx \
+musiclib-export analysis.xlsx \
   --format excel \
   --include-unrated \
   --local-only

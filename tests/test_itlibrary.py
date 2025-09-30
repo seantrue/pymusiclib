@@ -37,11 +37,11 @@ import time
 from typing import List, Optional
 
 try:
-    import pymusiclib
-    from pymusiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
-    from pymusiclib.helpers import LibraryBenchmark
+    import musiclib
+    from musiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
+    from musiclib.helpers import LibraryBenchmark
 except ImportError as e:
-    pytest.skip(f"ITLibrary Bridge not available: {e}", allow_module_level=True)
+    pytest.skip(f"MusicLib not available: {e}", allow_module_level=True)
 
 
 class TestITLibraryCore:
@@ -49,7 +49,7 @@ class TestITLibraryCore:
 
     def test_import_success(self):
         """Test that all modules can be imported successfully."""
-        assert pymusiclib is not None
+        assert musiclib is not None
         assert ITLibrary is not None
         assert ITLibraryError is not None
         assert MediaItem is not None
@@ -87,7 +87,7 @@ class TestITLibraryCore:
     def test_example_function(self):
         """Test the example function runs without error."""
         # This should not raise any exceptions
-        pymusiclib.run_simple_library_example()
+        musiclib.run_simple_library_example()
 
 
 class TestITLibraryMediaItems:
@@ -402,7 +402,7 @@ class TestITLibraryPerformance:
 def test_demos():
     """Test that demo scripts can be imported and run."""
     try:
-        from pymusiclib.scripts import demo, smoke
+        from musiclib.scripts import demo, smoke
 
         # These should not raise import errors
         assert demo is not None

@@ -2,8 +2,8 @@
 # Modern Python packaging configuration
 
 [project]
-name = "pymusiclib"
-version = "0.1.0"
+name = "musiclib"
+version = "0.2.0"
 description = "Python bindings for iTunes Library (ITlib) API using Swift bridge"
 readme = "README.md"
 authors = [
@@ -60,15 +60,15 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/seantrue/pymusiclib"
-Documentation = "https://pymusiclib.readthedocs.io/"
-Repository = "https://github.com/seantrue/pymusiclib.git"
-"Bug Tracker" = "https://github.com/seantrue/pymusiclib/issues"
+Homepage = "https://github.com/seantrue/musiclib"
+Documentation = "https://musiclib.readthedocs.io/"
+Repository = "https://github.com/seantrue/musiclib.git"
+"Bug Tracker" = "https://github.com/seantrue/musiclib/issues"
 
 [project.scripts]
-pymusiclib-demo = "pymusiclib.scripts.demo:main"
-pymusiclib-smoke = "pymusiclib.scripts.smoke:main"
-pymusiclib-export = "pymusiclib.scripts.export:main"
+musiclib-demo = "musiclib.scripts.demo:main"
+musiclib-smoke = "musiclib.scripts.smoke:main"
+musiclib-export = "musiclib.scripts.export:main"
 
 [tool.black]
 line-length = 88
@@ -107,11 +107,11 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-# Include both a single-module layout (pymusiclib.py) and a package layout (pymusiclib/)
+# Include both a single-module layout (musiclib.py) and a package layout (musiclib/)
 # so either structure is packaged correctly without setuptools.
 artifacts = ["*.dylib"]
 exclude = ["*.gif"]
-packages = ["src/pymusiclib"]
+packages = ["src/musiclib"]
 
 [tool.ruff]
 line-length = 88
@@ -159,7 +159,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["src/pymusiclib"]
+source = ["src/musiclib"]
 omit = [
     "*/tests/*",
     "*/scripts/*",

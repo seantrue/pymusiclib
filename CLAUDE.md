@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**PyMusicLib** is a Python package that provides bindings for Apple's iTunes Library (ITlib) API, enabling programmatic access to iTunes/Music library data on macOS. It consists of:
+**MusicLib** is a Python package that provides bindings for Apple's iTunes Library (ITlib) API, enabling programmatic access to iTunes/Music library data on macOS. It consists of:
 
-- **Python package** (`src/pymusiclib/`) - Main Python interface with ctypes bindings
+- **Python package** (`src/musiclib/`) - Main Python interface with ctypes bindings
 - **Swift bridge** (`src/SwiftITLibBridge.swift`) - Native Swift/iTunes Library interface compiled to `libitlibrary.dylib`
 - **Architecture**: Python calls ctypes → Swift dylib → iTunes Library Framework
 
@@ -26,7 +26,7 @@ make check
 # Build the Swift bridge library (required before running Python code)
 make build
 
-# The Swift compilation produces src/pymusiclib/libitlibrary.dylib
+# The Swift compilation produces src/musiclib/libitlibrary.dylib
 # This .dylib must exist before any Python code can run
 ```
 
@@ -95,7 +95,7 @@ make export-sample
 - **Optional**: Pillow (for image processing), OpenPyXL (for Excel export)
 
 ### Core Components
-- `pymusiclib.py` - Main Python API with iTunes Library classes (ITLibrary, MediaItem, Playlist, etc.)
+- `musiclib.py` - Main Python API with iTunes Library classes (ITLibrary, MediaItem, Playlist, etc.)
 - `helpers.py` - Higher-level utilities and performance benchmarks
 - `SwiftITLibBridge.swift` - Swift/iTunes Library implementation that gets compiled to .dylib
 - `scripts/` - Demo and smoke test entry points
@@ -121,5 +121,5 @@ The Python API provides access to iTunes/Music library with classes like:
 - **Test organization**: Use `pytest -m "not slow"` to skip performance benchmarks during development
 - **Package structure**: Uses modern Python packaging with `pyproject.toml` and `hatchling` build backend
 - **Library content dependent**: Many tests will skip if no media items or playlists are found in the iTunes Library
-- **Entry points**: Package provides CLI commands: `pymusiclib-demo`, `pymusiclib-smoke`, `pymusiclib-export`
+- **Entry points**: Package provides CLI commands: `musiclib-demo`, `musiclib-smoke`, `musiclib-export`
 - **Universal binaries**: Use `make build-universal` for ARM64 + x86_64 support

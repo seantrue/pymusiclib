@@ -4,7 +4,7 @@ Servify - Music Library Organization Tool
 ==========================================
 
 A tool for organizing music files into a Plex-compatible directory structure
-based on metadata from a CSV file exported from PyMusicLib.
+based on metadata from a CSV file exported from MusicLib.
 
 Features:
 - Organizes files into Artist/Album/Track structure
@@ -286,7 +286,7 @@ Directory Structure:
     # Required arguments
     parser.add_argument(
         "csv_file",
-        help="CSV file containing music metadata (exported from PyMusicLib)"
+        help="CSV file containing music metadata (exported from MusicLib)"
     )
 
     # Output options

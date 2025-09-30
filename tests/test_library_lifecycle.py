@@ -15,9 +15,9 @@ from typing import List
 import pytest
 
 try:
-    from pymusiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
+    from musiclib import ITLibrary, ITLibraryError, MediaItem, Playlist
 except ImportError:
-    pytest.skip("ITLibrary Bridge not available", allow_module_level=True)
+    pytest.skip("MusicLib not available", allow_module_level=True)
 
 
 class TestLibraryLifecycle:
